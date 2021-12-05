@@ -25,11 +25,11 @@ class CountryController extends Controller
             $fields = array_merge($fields, ['id']);
         }
 
-        return Country::select($fields)->get();
+        return response(Country::select($fields)->get());
     }
 
     public function show(Country $country)
     {
-        return $country->load(['continent', 'region']);
+        return response($country->load(['continent', 'region']));
     }
 }
