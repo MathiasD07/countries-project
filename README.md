@@ -1,66 +1,43 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Countries Project Laravel API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deployment
+The api is currently deployed on Heroku : [Click here](https://mysterious-woodland-00550.herokuapp.com/api/countries) to access it.
 
-## About Laravel
+## How to install the project for the first time ?
+This project use Docker.
+- Clone this repo with the `git clone` command
+- Access to the directory : `cd countries-project`
+- Install the composer dependencies : `composer install`
+- Copy the example docker env : `cp .env.docker .env`
+- Launch the docker composer : `./vendor/bin/sail up`
+- (Optional) Create an alias for sail : `alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'`
+- (Optional) If you have a problem with the container, you can remove it with this commande : `./vendor/bin/sail down --rmi all -v` )
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+⚠️ If you have not created the alias you must use `./vendor/bin/sail` instead of `sail`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Generate the laravel app key : `sail artisan key:generate`
+- Launch the migration of the database : `sail artisan migrate`
+- Wrap the datas from the RestContriesAPI  : `sail artisan wrap:countries`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## API Routes
 
-## Learning Laravel
+- `GET localhost/api/countries` : Get all the countries
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    Params: 
+    - fields: Select only listed fields. Separate fields with commas (eg: `?fields=common_name,official_name,tld`)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- `GET localhost/api/countries/:countryId` : Get a single country with his ID
 
-## Laravel Sponsors
+## The custom wrap:countries command
+As you have seen in the installation of the project we have a custom command `artisan wrap:countries`. It empties the database and retrieves the first 20 countries of the RestCountriesAPI.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## What can be improved ?
+- Add tests !!! 
+- Add factories and seeders to test the database.
+- Create a custom exception
+- Improve the exception handler
+- Add a limit argument to the command to get the number of countries of our choice
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Encountered problems
+- On the API side, no particular problem was encountered. It is very basic, no blocking point was encountered. 
+- For the front end, I had to go back to tutorials and docs because it had been a long time since I had done any. Being, basically, a back-end developer, this side was a bit longer.
