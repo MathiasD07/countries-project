@@ -21,6 +21,8 @@ class CountryController extends Controller
                     throw new \Exception('Field '.$field.' is not allowed', 400);
                 }
             }
+
+            $fields = array_merge($fields, ['id']);
         }
 
         return Country::select($fields)->get();
