@@ -9,7 +9,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Schema;
-use PHPUnit\Framework\Constraint\Count;
 
 class WrapCountriesApi extends Command
 {
@@ -25,7 +24,7 @@ class WrapCountriesApi extends Command
      *
      * @var string
      */
-    protected $description = 'Wrap 20 pokemon from countriesapi';
+    protected $description = 'Wrap 20 countries from RestCountries API';
 
     /**
      * Execute the console command.
