@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
             return response(['error_message' => 'A database error has occurred'], 400);
         }
 
-        return response(['error_message' => 'An error has occurred'], 500);
+        return response(['error_message' => $exception->getMessage()], 500);
     }
 
 }
