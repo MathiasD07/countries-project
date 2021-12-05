@@ -41,4 +41,22 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof NotFoundHttpException) {
+            return response(['error_message' => 'Not found.'], 404);
+        }
+
+        if ($exception instanceof HttpResponseException) {
+            return response(['error_message' => $exception->getResponse()->getContent()], $exception->getResponse()->getStatusCode());
+        }
+
+        if ($exception instanceof QueryException) {
+            return response(['error_message' => 'A database error has occurred'], 400);
+        }
+
+        return response(['error_message' => 'An error has occurred'], 500);
+    }
+
 }
